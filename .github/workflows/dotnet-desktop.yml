@@ -20,9 +20,6 @@
 # Next, use PowerShell to encode the .pfx file using Base64 encoding
 # by running the following Powershell script to generate the output string:
 #
-# $pfx_cert = Get-Content '.\SigningCertificate.pfx' -Encoding Byte
-# [System.Convert]::ToBase64String($pfx_cert) | Out-File 'SigningCertificate_Encoded.txt'
-#
 # Open the output file, SigningCertificate_Encoded.txt, and copy the
 # string inside. Then, add the string to the repo as a GitHub secret
 # and name it "Base64_Encoded_Pfx."
@@ -47,8 +44,7 @@ on:
 jobs:
 
   build:
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
@@ -56,25 +52,22 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-  
+
     - name: Restore dependencies
       run: dotnet restore ./Tests/Sistema_Bancario.csproj
-      
-    - name: Build the project
-      run: dotnet build ./Tests/Sistema_Bancario.csproj --configuration Release --no-restore
 
-    # Execute all unit tests in the solution
+    - name: List files
+      run: dir ./Tests
+
     - name: Execute unit tests
-      run: dotnet test ./Tests/Sistema_Bancario.csproj --no-restore --verbosity normal
+      run: dotnet test ./Tests/Sistema_Bancario.csproj --no-restore --verbosity normal --logger "trx;LogFileName=test_results.trx"
 
-    # Publish all tests results in the solution
     - name: Publish tests results
       uses: actions/upload-artifact@v3
       with:
         name: Test Results
-        path: TestResults/*.xml
+        path: TestResults/test_results.trx
