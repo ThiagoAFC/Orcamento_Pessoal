@@ -16,7 +16,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install .NET Core
+    - name: cache .NET Core
       uses: actions/setup-dotnet@v4.0.1
       with:
         dotnet-version: 8.0.x
@@ -47,7 +47,7 @@ jobs:
     - name: Run CPD (Duplicate Code Detector)
       run: |
         echo "Executando o CPD (Detector de código duplicado)..."
-        & ".\pmd-bin-7.8.0\bin\pmd" cpd --minimum-tokens 40 --dir .\Orcamento_Pessoal --language cs --format text > cpd-results.txt
+        & ".\pmd-bin-7.8.0\bin\pmd" cpd --minimum-tokens 40 --dir . --language cs --format text > cpd-results.txt
 
     # Publica o resultado da detecção de código duplicado
     - name: Upload CPD Results
@@ -58,4 +58,4 @@ jobs:
 
     # Passo para exibir resultados do CPD no console
     - name: Display CPD Results
-      run: cat cpd-results.txt
+      run: Get-Content cpd-results.txt
