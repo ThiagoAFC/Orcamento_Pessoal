@@ -39,9 +39,9 @@ jobs:
     # Novo passo para configurar o PMD
     - name: Download and Setup PMD
       run: |
-        curl -L -o pmd-bin.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.8.0/pmd-dist-7.8.0-bin.zip
-        unzip pmd-bin.zip -d pmd
-        rm pmd-bin.zip
+        curl -L -o pmd-dist-7.8.0-bin.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.8.0/pmd-dist-7.8.0-bin.zip
+        unzip pmd-dist-7.8.0-bin.zip -d pmd
+        rm pmd-dist-7.8.0-bin.zip
 
     # Novo passo para executar o CPD (detector de código duplicado)
     - name: Run CPD (Duplicate Code Detector)
