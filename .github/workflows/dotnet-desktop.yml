@@ -36,3 +36,20 @@ jobs:
       with:
         name: Test Results
         path: TestResults/test_results.trx
+
+    - name: Install PlantUML
+      run: |
+        choco install plantuml
+
+    - name: Generate UML Diagram
+      run: |
+        # Suponha que você tenha um arquivo PlantUML, ou que você queira gerar diagramas do código.
+        # Se estiver gerando a partir de código, você pode gerar o arquivo PlantUML primeiro
+        # Usaremos um arquivo PlantUML de exemplo como "diagram.puml" para o diagrama.
+        plantuml -tpng diagram.puml
+
+    - name: Upload UML Diagram as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: uml-diagram
+        path: diagram.png
