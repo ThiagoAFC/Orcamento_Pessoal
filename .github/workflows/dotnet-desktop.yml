@@ -47,8 +47,7 @@ jobs:
     - name: Run CPD (Duplicate Code Detector)
       run: |
         echo "Executando o CPD (Detector de código duplicado)..."
-        # Usando o comando do PowerShell para executar o PMD corretamente no Windows
-        & ".\pmd-bin-7.8.0\bin\pmd" cpd --minimum-tokens 40 --dir . --language cs --format text > cpd-results.txt
+        Start-Process -FilePath ".\pmd-bin-7.8.0\bin\pmd" -ArgumentList "cpd --minimum-tokens 40 --dir . --language cs --format text" -Wait
 
     # Publica o resultado da detecção de código duplicado
     - name: Upload CPD Results
