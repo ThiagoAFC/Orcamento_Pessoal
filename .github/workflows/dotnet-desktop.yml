@@ -16,13 +16,24 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: cache .NET Core
+    - name: Cache .NET dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.nuget/packages
+          # Para Windows, use o caminho adequado para armazenar o cache do NuGet
+          C:\Users\runneradmin\.nuget\packages
+        key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-dotnet-
+
+    - name: Install .NET Core
       uses: actions/setup-dotnet@v4.0.1
       with:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore ./Tests/Sistema_Bancario.csproj
+      run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
 
     - name: List files
       run: dir ./Tests
@@ -47,7 +58,7 @@ jobs:
     - name: Run CPD (Duplicate Code Detector)
       run: |
         echo "Executando o CPD (Detector de código duplicado)..."
-        & ".\pmd-bin-7.8.0\bin\pmd" cpd --minimum-tokens 40 --dir . --language cs --format text > cpd-results.txt
+        & ".\pmd-bin-7.8.0\bin\pmd.bat" cpd --minimum-tokens 40 --dir . --language cs --format text > cpd-results.txt
 
     # Publica o resultado da detecção de código duplicado
     - name: Upload CPD Results
