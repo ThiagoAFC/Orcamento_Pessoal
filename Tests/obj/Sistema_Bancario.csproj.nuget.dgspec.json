@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/Orcamento_Pessoal/Tests/Sistema_Bancario.csproj": {}
+    "C:\\Orcamento_Pessoal\\Tests\\Sistema_Bancario.csproj": {}
   },
   "projects": {
-    "/workspaces/Orcamento_Pessoal/Tests/Sistema_Bancario.csproj": {
+    "C:\\Orcamento_Pessoal\\Tests\\Sistema_Bancario.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/Orcamento_Pessoal/Tests/Sistema_Bancario.csproj",
+        "projectUniqueName": "C:\\Orcamento_Pessoal\\Tests\\Sistema_Bancario.csproj",
         "projectName": "Sistema_Bancario",
-        "projectPath": "/workspaces/Orcamento_Pessoal/Tests/Sistema_Bancario.csproj",
-        "packagesPath": "/home/vscode/.nuget/packages/",
-        "outputPath": "/workspaces/Orcamento_Pessoal/Tests/obj/",
+        "projectPath": "C:\\Orcamento_Pessoal\\Tests\\Sistema_Bancario.csproj",
+        "packagesPath": "C:\\Users\\olivt059\\.nuget\\packages\\",
+        "outputPath": "C:\\Orcamento_Pessoal\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/vscode/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\olivt059\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -76,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
