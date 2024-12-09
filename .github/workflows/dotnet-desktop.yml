@@ -7,7 +7,6 @@ on:
     branches:
 
 jobs:
-
   build:
     runs-on: windows-latest
 
@@ -17,13 +16,24 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Cache .NET dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.nuget/packages
+          # Para Windows, use o caminho adequado para armazenar o cache do NuGet
+          C:\Users\runneradmin\.nuget\packages
+        key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-dotnet-
+
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4.0.1
       with:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore ./Tests/Sistema_Bancario.csproj
+      run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
 
     - name: List files
       run: dir ./Tests
@@ -31,8 +41,32 @@ jobs:
     - name: Execute unit tests
       run: dotnet test ./Tests/Sistema_Bancario.csproj --no-restore --verbosity normal --logger "trx;LogFileName=test_results.trx"
 
-    - name: Publish tests results
+    - name: Publish test results
       uses: actions/upload-artifact@v4.4.3
       with:
         name: Test Results
         path: TestResults/test_results.trx
+
+    # Novo passo para configurar o PMD
+    - name: Download and Setup PMD
+      run: |
+        curl -L -o pmd-dist-7.8.0-bin.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.8.0/pmd-dist-7.8.0-bin.zip
+        unzip pmd-dist-7.8.0-bin.zip -d pmd
+        rm pmd-dist-7.8.0-bin.zip
+
+    # Novo passo para executar o CPD (detector de código duplicado)
+    - name: Run CPD (Duplicate Code Detector)
+      run: |
+        echo "Executando o CPD (Detector de código duplicado)..."
+        Start-Process -FilePath ".\pmd-bin-7.8.0\bin\pmd" -ArgumentList "cpd --minimum-tokens 40 --dir . --language cs --format text" > cpd-results.txt
+
+    # Publica o resultado da detecção de código duplicado
+    - name: Upload CPD Results
+      uses: actions/upload-artifact@v4.4.3
+      with:
+        name: CPD Results
+        path: cpd-results.txt
+
+    # Passo para exibir resultados do CPD no console
+    - name: Display CPD Results
+      run: Get-Content cpd-results.txt

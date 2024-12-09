@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Sistema_Bancario.Tests
-build_property.ProjectDir = /workspaces/Orcamento_Pessoal/Tests/
+build_property.ProjectDir = C:\Orcamento_Pessoal\Tests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
