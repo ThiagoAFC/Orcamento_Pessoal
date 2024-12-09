@@ -35,9 +35,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
 
-    - name: List files
-      run: dir ./Tests
-
     - name: Execute unit tests
       run: dotnet test ./Tests/Sistema_Bancario.csproj --no-restore --verbosity normal --logger "trx;LogFileName=test_results.trx"
 
@@ -58,9 +55,17 @@ jobs:
       run: |
         choco install plantuml
 
-    - name: Generate UML Diagram
+    - name: Generate PlantUML file
       run: |
-        # Comando para gerar o diagrama UML
+        # Crie um arquivo PlantUML básico manualmente ou gere dinamicamente
+        echo "@startuml" > diagram.puml
+        echo "class BankAccount {" >> diagram.puml
+        echo "  - balance : decimal" >> diagram.puml
+        echo "  + Deposit(amount : decimal) : void" >> diagram.puml
+        echo "}" >> diagram.puml
+        echo "@enduml" >> diagram.puml
+
+        # Converte o .puml em uma imagem
         plantuml -tpng diagram.puml
 
     - name: Upload UML Diagram as Artifact
