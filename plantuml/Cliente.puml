@@ -1,0 +1,13 @@
+@startuml
+class Cliente {
+    + Id : int <<get>> <<set>>
+    + Nome : string <<get>> <<set>>
+    + Saldo : double <<get>> <<set>>
+    + IdUsuario : int <<get>> <<set>>
+    + CompareTo(obj:Cliente) : int
+    + <<override>> ToString() : string
+}
+class "IComparable`1"<T> {
+}
+"IComparable`1" "<Cliente>" <|-- Cliente
+@enduml

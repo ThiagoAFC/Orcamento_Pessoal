@@ -1,0 +1,13 @@
+@startuml
+!include .\\Cliente.puml
+!include .\\Conta.puml
+!include .\\Movimentações.puml
+!include .\\NCliente.puml
+!include .\\NConta.puml
+!include .\\NMovimentações.puml
+!include .\\NUsuario.puml
+!include .\\Program.puml
+!include .\\Usuario.puml
+!include .\\Tests\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.puml
+!include .\\Tests\obj\Debug\net8.0\Sistema_Bancario.AssemblyInfo.puml
+@enduml

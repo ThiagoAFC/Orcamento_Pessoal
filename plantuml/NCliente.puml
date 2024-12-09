@@ -1,0 +1,11 @@
+@startuml
+class NCliente <<static>> {
+    + {static} Inserir(c:Cliente) : void
+    + {static} Listar() : List<Cliente>
+    + {static} Listar(id:int) : Cliente
+    + {static} ListarUsuario(idUsuario:int) : Cliente
+    + {static} Excluir(c:Cliente) : void
+    + {static} Saldos() : List<Cliente>
+    + {static} Saldos(saldo:int) : Cliente
+}
+@enduml

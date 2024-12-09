@@ -1,0 +1,12 @@
+@startuml
+class NMovimentações {
+    + {static} Inserir(m:Movimentações) : int
+    + {static} Listar() : List<Movimentações>
+    + {static} listar(con:Conta) : List<Movimentações>
+    + {static} Sacar(valor:double, id:int) : void
+    + {static} Depositar(valor:double, id:int) : void
+    + {static} VerSaldo(idcliente:int) : void
+    + {static} Transferencia(valor:double, idd:int, idc:int, idcliente:int) : void
+    + {static} VerSaldoAdmin() : void
+}
+@enduml
