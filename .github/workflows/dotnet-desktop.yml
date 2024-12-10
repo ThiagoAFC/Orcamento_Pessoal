@@ -17,7 +17,7 @@ jobs:
         fetch-depth: 0
 
     - name: Cache .NET dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           ~/.nuget/packages
@@ -55,18 +55,26 @@ jobs:
       run: |
         choco install plantuml
 
-    - name: Generate PlantUML file
+    - name: Generate UML Diagram with PlantUML
       run: |
-        # Crie um arquivo PlantUML básico manualmente ou gere dinamicamente
-        echo "@startuml" > diagram.puml
-        echo "class BankAccount {" >> diagram.puml
-        echo "  - balance : decimal" >> diagram.puml
-        echo "  + Deposit(amount : decimal) : void" >> diagram.puml
-        echo "}" >> diagram.puml
-        echo "@enduml" >> diagram.puml
+        # Criação manual de um arquivo PlantUML para teste
+        echo "@startuml" > generated/diagram.puml
+        echo "class BankAccount {" >> generated/diagram.puml
+        echo "  - balance : decimal" >> generated/diagram.puml
+        echo "  + Deposit(amount : decimal) : void" >> generated/diagram.puml
+        echo "}" >> generated/diagram.puml
+        echo "@enduml" >> generated/diagram.puml
 
-        # Converte o .puml em uma imagem
-        plantuml -tpng diagram.puml
+        # Criação da pasta de saída, se necessário
+        mkdir -p generated
+
+        # Converte o .puml para PNG
+        plantuml -tpng generated/diagram.puml
+
+    - name: Verify files
+      run: |
+        echo "Verificando arquivos gerados:"
+        dir generated
 
     - name: Upload UML Diagram as Artifact
       uses: actions/upload-artifact@v4.4.3
