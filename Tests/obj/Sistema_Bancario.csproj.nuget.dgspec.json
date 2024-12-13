@@ -51,6 +51,12 @@
               "target": "Package",
               "version": "[4.18.2, )"
             },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
             "xunit": {
               "target": "Package",
               "version": "[2.4.1, )"

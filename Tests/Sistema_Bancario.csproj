@@ -10,7 +10,11 @@
     <Compile Include="src\**\*.cs" />
     <!-- Adicione as referências aos pacotes de teste necessários -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageReference Include="Moq" Version="4.18.2" />  <!-- Exemplo de um pacote para mocks -->
+    <PackageReference Include="Moq" Version="4.18.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>  <!-- Exemplo de um pacote para mocks -->
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
   </ItemGroup>
