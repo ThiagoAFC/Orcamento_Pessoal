@@ -1,0 +1,13 @@
+@startuml
+class Usuario {
+    + Id : int <<get>> <<set>>
+    + Nome : string <<get>> <<set>>
+    + Senha : string <<get>> <<set>>
+    + Admin : bool <<get>> <<set>>
+    + CompareTo(obj:Usuario) : int
+    + <<override>> ToString() : string
+}
+class "IComparable`1"<T> {
+}
+"IComparable`1" "<Usuario>" <|-- Usuario
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+class Conta {
+    + ID : int <<get>> <<set>>
+    + TipoConta : string <<get>> <<set>>
+    + SaldoConta : double <<get>> <<set>>
+    + IDCliente : int <<get>> <<set>>
+    + CompareTo(obj:Conta) : int
+    + <<override>> ToString() : string
+}
+class "IComparable`1"<T> {
+}
+"IComparable`1" "<Conta>" <|-- Conta
+@enduml

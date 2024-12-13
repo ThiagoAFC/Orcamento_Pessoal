@@ -1,0 +1,13 @@
+@startuml
+class Movimentações {
+    + ID : int <<get>> <<set>>
+    + valor : double <<get>> <<set>>
+    + IDConta : int <<get>> <<set>>
+    + CompareTo(obj:Movimentações) : int
+    + <<override>> ToString() : string
+}
+class "IComparable`1"<T> {
+}
+"IComparable`1" "<Movimentações>" <|-- Movimentações
+Movimentações --> "data" DateTime
+@enduml

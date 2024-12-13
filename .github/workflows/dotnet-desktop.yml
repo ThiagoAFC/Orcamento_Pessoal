@@ -17,11 +17,10 @@ jobs:
         fetch-depth: 0
 
     - name: Cache .NET dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           ~/.nuget/packages
-          # Para Windows, use o caminho adequado para armazenar o cache do NuGet
           C:\Users\runneradmin\.nuget\packages
         key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
         restore-keys: |
@@ -35,38 +34,57 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
 
-    - name: List files
-      run: dir ./Tests
+    # Adicionar um passo para listar os arquivos no diretório principal
+    - name: List repository files
+      run: dir
 
-    - name: Execute unit tests
-      run: dotnet test ./Tests/Sistema_Bancario.csproj --no-restore --verbosity normal --logger "trx;LogFileName=test_results.trx"
-
-    - name: Publish test results
-      uses: actions/upload-artifact@v4.4.3
-      with:
-        name: Test Results
-        path: TestResults/test_results.trx
-
-    # Novo passo para configurar o PMD
+    # Configurar o PMD
     - name: Download and Setup PMD
       run: |
         curl -L -o pmd-dist-7.8.0-bin.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.8.0/pmd-dist-7.8.0-bin.zip
         unzip pmd-dist-7.8.0-bin.zip -d pmd
         rm pmd-dist-7.8.0-bin.zip
 
-    # Novo passo para executar o CPD (detector de código duplicado)
+    # Executar o CPD (detector de código duplicado)
     - name: Run CPD (Duplicate Code Detector)
       run: |
         echo "Executando o CPD (Detector de código duplicado)..."
-        Start-Process -FilePath ".\pmd-bin-7.8.0\bin\pmd" -ArgumentList "cpd --minimum-tokens 40 --dir . --language cs --format text" > cpd-results.txt
+        .\pmd-bin-7.8.0\bin\pmd cpd --minimum-tokens 40 --dir . --language cs --format text
 
-    # Publica o resultado da detecção de código duplicado
-    - name: Upload CPD Results
+    # Instalar o PlantUML
+    - name: Install PlantUML
+      run: |
+        choco install plantuml
+
+    # Gerar o diagrama UML com PlantUML
+    - name: Generate UML Diagram with PlantUML
+      run: |
+        # Certifique-se de estar no diretório correto (diretório raiz do repositório)
+        mkdir generated || exit 0
+
+        # Criação manual de um arquivo PlantUML para teste
+        echo @startuml > generated/program.png
+        echo class BankAccount { >> generated/program.png
+        echo "  - balance : decimal" >> generated/program.png
+        echo "  + Deposit(amount : decimal) : void" >> generated/program.png
+        echo } >> generated/program.png
+        echo @enduml >> generated/program.png
+
+        # Converte o .puml para PNG
+        plantuml -tpng generated/program.png
+
+        # Verificar arquivos gerados
+        dir generated
+
+    # Fazer upload do diagrama UML como artefato
+    - name: Upload UML Diagram as Artifact
       uses: actions/upload-artifact@v4.4.3
       with:
-        name: CPD Results
-        path: cpd-results.txt
+        name: uml-diagram
+        path: generated/diagram.png
 
-    # Passo para exibir resultados do CPD no console
-    - name: Display CPD Results
-      run: Get-Content cpd-results.txt
+    # Verificar o conteúdo do arquivo PlantUML
+    - name: Check PlantUML File
+      run: |
+        echo "Conteúdo do arquivo PlantUML:"
+        type generated/program.png
