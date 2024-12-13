@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sistema_Bancario.Domain.Entities;
 
-namespace Sistema_Bancario.Application.Services;
+namespace Sistema_Bancario
 {
     static class NCliente
     {

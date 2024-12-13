@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistema_Bancario.Domain.ValueObjects;
+namespace Sistema_Bancario
 {
     class Movimentações : IComparable<Movimentações>
     {
