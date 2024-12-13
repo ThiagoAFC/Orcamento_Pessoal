@@ -1,0 +1,22 @@
+@startuml
+class Program {
+    + {static} InserirAdmin() : void
+    + {static} MainAdmin() : void
+    + {static} MainCliente() : void
+    + {static} Menu() : int
+    + {static} MenuAdmin() : int
+    + {static} MenuCliente() : int
+    + {static} Login() : bool
+    + {static} Cadastro() : void
+    + {static} ListarClientes() : void
+    + {static} ExcluirCliente() : void
+    + {static} ContaInserir() : void
+    + {static} ListarContas() : void
+    + {static} ExcluirContas() : void
+    + {static} Sacar() : void
+    + {static} Depositar() : void
+    + {static} Saldo() : void
+    + {static} Transferencia() : void
+    + {static} SaldoAdmin() : void
+}
+@enduml

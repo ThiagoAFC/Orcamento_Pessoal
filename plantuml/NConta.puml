@@ -1,0 +1,10 @@
+@startuml
+class NConta {
+    + {static} Inserir(con:Conta) : void
+    + {static} Listar() : List<Conta>
+    + {static} Listar(id:int) : Conta
+    + {static} Excluir(con:Conta) : void
+    + {static} ListarSaldos() : List<Conta>
+    + {static} ListarSaldo(idcliente:int) : List<Conta>
+}
+@enduml

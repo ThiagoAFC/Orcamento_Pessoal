@@ -1,0 +1,6 @@
+@startuml
+class NUsuario {
+    + {static} Autenticar(nome:string, senha:string) : Usuario
+    + {static} Inserir(u:Usuario) : int
+}
+@enduml

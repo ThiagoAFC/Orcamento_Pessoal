@@ -111,18 +111,18 @@ namespace Sistema_Bancario
         public static int MenuAdmin()
         {
             Console.WriteLine();
-            Console.WriteLine("----- Clientes -----");
+            Console.WriteLine("------ Clientes ------");
             Console.WriteLine("  01 - Inserir Cliente");
             Console.WriteLine("  02 - Listar Clientes");
-            Console.WriteLine("  03 - Ver saldos dos clientes");
+            Console.WriteLine("  03 - saldos clientes");
             Console.WriteLine("  04 - Remover cliente");
-            Console.WriteLine("----- Contas -----");
+            Console.WriteLine("------ Contas ------");
             Console.WriteLine("  05 - Inserir Conta");
             Console.WriteLine("  06 - Listar Contas");
             Console.WriteLine("  07 - Remover Conta");
-            Console.WriteLine("----------------------");
+            Console.WriteLine("--------------------");
             Console.WriteLine("  99 - Logout");
-            Console.WriteLine("----------------------");
+            Console.WriteLine("--------------------");
             Console.Write("Opção: ");
             return int.Parse(Console.ReadLine());
         }
