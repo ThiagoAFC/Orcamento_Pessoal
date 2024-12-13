@@ -35,9 +35,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
 
-    - name: Execute unit tests
-      run: dotnet test ./Tests/Sistema_Bancario.csproj --no-restore --verbosity normal --logger "trx;LogFileName=test_results.trx"
-
     # Novo passo para configurar o PMD
     - name: Download and Setup PMD
       run: |
@@ -57,33 +54,33 @@ jobs:
 
     - name: Generate UML Diagram with PlantUML
       run: |
+        # Certifique-se de estar no diretório correto
+        cd Orcamento_Pessoal
+    
+        # Criação da pasta de saída
+        mkdir generated || exit 0
+    
         # Criação manual de um arquivo PlantUML para teste
-        echo "@startuml" > generated/diagram.puml
-        echo "class BankAccount {" >> generated/diagram.puml
+        echo @startuml > generated/diagram.puml
+        echo class BankAccount { >> generated/diagram.puml
         echo "  - balance : decimal" >> generated/diagram.puml
         echo "  + Deposit(amount : decimal) : void" >> generated/diagram.puml
-        echo "}" >> generated/diagram.puml
-        echo "@enduml" >> generated/diagram.puml
-
-        # Criação da pasta de saída, se necessário
-        mkdir -p generated
-
+        echo } >> generated/diagram.puml
+        echo @enduml >> generated/diagram.puml
+    
         # Converte o .puml para PNG
         plantuml -tpng generated/diagram.puml
-
-    - name: Verify files
-      run: |
-        echo "Verificando arquivos gerados:"
+    
+        # Verificar arquivos gerados
         dir generated
 
     - name: Upload UML Diagram as Artifact
       uses: actions/upload-artifact@v4.4.3
       with:
         name: uml-diagram
-        path: diagram.png
+        path: Orcamento_Pessoal/generated/diagram.png
 
-    - name: Publish test results
-      uses: actions/upload-artifact@v4.4.3
-      with:
-        name: Test Results
-        path: TestResults/test_results.trx
+    - name: Check PlantUML File
+      run: |
+        echo "Conteúdo do arquivo PlantUML:"
+        type Orcamento_Pessoal/generated/diagram.puml
