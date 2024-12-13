@@ -21,7 +21,6 @@ jobs:
       with:
         path: |
           ~/.nuget/packages
-          # Para Windows, use o caminho adequado para armazenar o cache do NuGet
           C:\Users\runneradmin\.nuget\packages
         key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
         restore-keys: |
@@ -35,31 +34,37 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
 
-    # Novo passo para configurar o PMD
+    # Adicionar um passo para listar os arquivos no diretório principal
+    - name: List repository files
+      run: dir
+
+    # Configurar o PMD
     - name: Download and Setup PMD
       run: |
         curl -L -o pmd-dist-7.8.0-bin.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.8.0/pmd-dist-7.8.0-bin.zip
         unzip pmd-dist-7.8.0-bin.zip -d pmd
         rm pmd-dist-7.8.0-bin.zip
 
-    # Novo passo para executar o CPD (detector de código duplicado)
+    # Executar o CPD (detector de código duplicado)
     - name: Run CPD (Duplicate Code Detector)
       run: |
         echo "Executando o CPD (Detector de código duplicado)..."
         .\pmd-bin-7.8.0\bin\pmd cpd --minimum-tokens 40 --dir . --language cs --format text
 
+    # Instalar o PlantUML
     - name: Install PlantUML
       run: |
         choco install plantuml
 
+    # Gerar o diagrama UML com PlantUML
     - name: Generate UML Diagram with PlantUML
       run: |
         # Certifique-se de estar no diretório correto
-        cd Orcamento_Pessoal
-    
+        cd ./Orcamento_Pessoal || exit 1
+
         # Criação da pasta de saída
         mkdir generated || exit 0
-    
+
         # Criação manual de um arquivo PlantUML para teste
         echo @startuml > generated/diagram.puml
         echo class BankAccount { >> generated/diagram.puml
@@ -67,19 +72,21 @@ jobs:
         echo "  + Deposit(amount : decimal) : void" >> generated/diagram.puml
         echo } >> generated/diagram.puml
         echo @enduml >> generated/diagram.puml
-    
+
         # Converte o .puml para PNG
         plantuml -tpng generated/diagram.puml
-    
+
         # Verificar arquivos gerados
         dir generated
 
+    # Fazer upload do diagrama UML como artefato
     - name: Upload UML Diagram as Artifact
       uses: actions/upload-artifact@v4.4.3
       with:
         name: uml-diagram
         path: Orcamento_Pessoal/generated/diagram.png
 
+    # Verificar o conteúdo do arquivo PlantUML
     - name: Check PlantUML File
       run: |
         echo "Conteúdo do arquivo PlantUML:"
