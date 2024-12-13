@@ -40,7 +40,8 @@
 				"ms-mssql.mssql",
 				"ms-azuretools.vscode-docker",
 				"ms-dotnettools.csdevkit",
-				"pierre3.csharp-to-plantuml"
+				"pierre3.csharp-to-plantuml",
+				"jmrog.vscode-nuget-package-manager"
 			]
 		}
 	}

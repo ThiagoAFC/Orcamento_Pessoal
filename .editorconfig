@@ -1,0 +1,23 @@
+# Arquivo .editorconfig
+root = true
+
+# C# Settings
+[*.cs]
+charset = utf-8
+
+# Indentação
+indent_style = tab       # Usar tabulação para indentação
+indent_size = 4          # Número de espaços equivalentes a uma tabulação (isso pode ser ignorado quando usar tab)
+tab_width = 4            # Largura da tabulação
+
+# Quebra de linha
+end_of_line = crlf
+insert_final_newline = true
+
+# Nomenclatura
+dotnet_naming_rule.methods_should_be_pascall_case.severity = warning
+dotnet_naming_rule.methods_should_be_pascall_case.symbols = methods
+dotnet_naming_rule.methods_should_be_pascall_case.style = pascal_case
+
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+dotnet_naming_symbols.methods.applicable_kinds = method
