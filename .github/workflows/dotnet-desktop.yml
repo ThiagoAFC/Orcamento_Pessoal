@@ -63,15 +63,15 @@ jobs:
         mkdir generated || exit 0
 
         # Criação manual de um arquivo PlantUML para teste
-        echo @startuml > generated/diagram.puml
-        echo class BankAccount { >> generated/diagram.puml
-        echo "  - balance : decimal" >> generated/diagram.puml
-        echo "  + Deposit(amount : decimal) : void" >> generated/diagram.puml
-        echo } >> generated/diagram.puml
-        echo @enduml >> generated/diagram.puml
+        echo @startuml > generated/program.png
+        echo class BankAccount { >> generated/program.png
+        echo "  - balance : decimal" >> generated/program.png
+        echo "  + Deposit(amount : decimal) : void" >> generated/program.png
+        echo } >> generated/program.png
+        echo @enduml >> generated/program.png
 
         # Converte o .puml para PNG
-        plantuml -tpng generated/diagram.puml
+        plantuml -tpng generated/program.png
 
         # Verificar arquivos gerados
         dir generated
@@ -87,4 +87,4 @@ jobs:
     - name: Check PlantUML File
       run: |
         echo "Conteúdo do arquivo PlantUML:"
-        type generated/diagram.puml
+        type generated/program.png
