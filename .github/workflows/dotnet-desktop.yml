@@ -59,10 +59,7 @@ jobs:
     # Gerar o diagrama UML com PlantUML
     - name: Generate UML Diagram with PlantUML
       run: |
-        # Certifique-se de estar no diretório correto
-        cd ./Orcamento_Pessoal || exit 1
-
-        # Criação da pasta de saída
+        # Certifique-se de estar no diretório correto (diretório raiz do repositório)
         mkdir generated || exit 0
 
         # Criação manual de um arquivo PlantUML para teste
@@ -84,10 +81,10 @@ jobs:
       uses: actions/upload-artifact@v4.4.3
       with:
         name: uml-diagram
-        path: Orcamento_Pessoal/generated/diagram.png
+        path: generated/diagram.png
 
     # Verificar o conteúdo do arquivo PlantUML
     - name: Check PlantUML File
       run: |
         echo "Conteúdo do arquivo PlantUML:"
-        type Orcamento_Pessoal/generated/diagram.puml
+        type generated/diagram.puml
