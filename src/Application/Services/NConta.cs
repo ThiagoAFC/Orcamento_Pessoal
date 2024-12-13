@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Sistema_Bancario.Domain.Entities;
 
 namespace Sistema_Bancario.Application.Services;
 
 class NConta
+
 {
     private static List<Conta> contas = new List<Conta>();
     public static void Inserir(Conta con)

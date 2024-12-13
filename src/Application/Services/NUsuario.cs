@@ -8,6 +8,7 @@ using Sistema_Bancario.Domain.Entities;
 namespace Sistema_Bancario.Application.Services;
 
 class NUsuario
+
 {
     private static List<Usuario> usuarios = new List<Usuario>();
     public static Usuario Autenticar(string nome, string senha)
