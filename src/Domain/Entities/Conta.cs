@@ -30,36 +30,36 @@ namespace Sistema_Bancario.Domain.Entities
         }
 
         // Sobrecarga dos operadores de comparação
-        public static bool operator ==(Conta c1, Conta c2)
+        public static bool operator ==(Conta co1, Conta co2)
         {
-            if (ReferenceEquals(c1, null) && ReferenceEquals(c2, null)) return true;
-            if (ReferenceEquals(c1, null) || ReferenceEquals(c2, null)) return false;
-            return c1.Equals(c2); // Usando Equals para comparação
+            if (ReferenceEquals(co1, null) && ReferenceEquals(co2, null)) return true;
+            if (ReferenceEquals(co1, null) || ReferenceEquals(co2, null)) return false;
+            return co1.Equals(co2); // Usando Equals para comparação
         }
 
-        public static bool operator !=(Conta c1, Conta c2)
+        public static bool operator !=(Conta co1, Conta co2)
         {
-            return !(c1 == c2); // Usando o operador == para determinar desigualdade
+            return !(co1 == co2); // Usando o operador == para determinar desigualdade
         }
 
-        public static bool operator <(Conta c1, Conta c2)
+        public static bool operator <(Conta co1, Conta co2)
         {
-            return c1.CompareTo(c2) < 0; // Comparação usando CompareTo
+            return co1.CompareTo(co2) < 0; // Comparação usando CompareTo
         }
 
-        public static bool operator <=(Conta c1, Conta c2)
+        public static bool operator <=(Conta co1, Conta co2)
         {
-            return c1.CompareTo(c2) <= 0; // Comparação usando CompareTo
+            return co1.CompareTo(co2) <= 0; // Comparação usando CompareTo
         }
 
-        public static bool operator >(Conta c1, Conta c2)
+        public static bool operator >(Conta co1, Conta co2)
         {
-            return c1.CompareTo(c2) > 0; // Comparação usando CompareTo
+            return co1.CompareTo(co2) > 0; // Comparação usando CompareTo
         }
 
-        public static bool operator >=(Conta c1, Conta c2)
+        public static bool operator >=(Conta co1, Conta co2)
         {
-            return c1.CompareTo(c2) >= 0; // Comparação usando CompareTo
+            return co1.CompareTo(co2) >= 0; // Comparação usando CompareTo
         }
         public override string ToString()
         {
