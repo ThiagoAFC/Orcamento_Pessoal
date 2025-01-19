@@ -12,7 +12,6 @@ static class NMovimentações
     private static List<Movimentações> mov = new List<Movimentações>();
     public static int Inserir(Movimentações m)
     {
-        int id = 0;
         int id = mov.Count == 0 ? 1 : mov.Select(obj => obj.ID).Max() + 1;
         m.ID = id;
         mov.Add(m);

@@ -16,8 +16,7 @@ class Cliente : IComparable<Cliente>
     }
     public override bool Equals(object obj)
     {
-        if (obj == null || !(obj is Cliente)) return false;
-        return Nome == ((Cliente)obj).Nome; // Comparação por Nome
+        return obj is Cliente cliente && Nome == cliente.Nome;
     }
     public override int GetHashCode()
     {

@@ -20,8 +20,7 @@ namespace Sistema_Bancario.Domain.Entities
         // Sobrescrevendo Equals para garantir consistência com CompareTo
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is Conta)) return false;
-            return TipoConta == ((Conta)obj).TipoConta; // Comparação por TipoConta
+            return obj is Conta conta && TipoConta == conta.TipoConta; // Comparação por TipoConta
         }
 
         // Sobrescrevendo GetHashCode

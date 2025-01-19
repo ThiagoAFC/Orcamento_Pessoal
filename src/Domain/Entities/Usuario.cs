@@ -20,8 +20,7 @@ namespace Sistema_Bancario.Domain.Entities
         // Sobrescrevendo Equals para garantir consistência com CompareTo
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is Usuario)) return false;
-            return Nome == ((Usuario)obj).Nome; // Comparação por Nome
+            return obj is Usuario usuario && Nome == usuario.Nome; // Comparação por Nome
         }
 
         // Sobrescrevendo GetHashCode

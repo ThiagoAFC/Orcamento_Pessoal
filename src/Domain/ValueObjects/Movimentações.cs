@@ -19,8 +19,7 @@ namespace Sistema_Bancario.Domain.ValueObjects
         // Sobrescrevendo Equals para garantir consistência com CompareTo
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is Movimentações)) return false;
-            return data == ((Movimentações)obj).data; // Comparação por data
+            return obj is Movimentações movimentacao && data == movimentacao.data; // Comparação por data
         }
 
         // Sobrescrevendo GetHashCode
