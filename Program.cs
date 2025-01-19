@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Sistema_Bancario
 {
-    internal class Program
+    internal static class Program
     {
         private static bool adminLogado = false;
         private static Cliente clienteLogado = null;
@@ -63,7 +63,6 @@ namespace Sistema_Bancario
                         case 05: ContaInserir(); break;
                         case 06: ListarContas(); break;
                         case 07: ExcluirContas(); break;
-                        //case 08: ListarMovimentações(); break;
 
                     }
                 }
@@ -99,12 +98,12 @@ namespace Sistema_Bancario
         public static int Menu()
         {
             Console.WriteLine();
-            Console.WriteLine("----- Selecione ------");
+            Console.WriteLine("---- Selecione ----");
             Console.WriteLine("  01 - Login");
             Console.WriteLine("  02 - Cadastrar-se");
-            Console.WriteLine("----------------------");
+            Console.WriteLine("-------------------");
             Console.WriteLine("  99 - Sair");
-            Console.WriteLine("----------------------");
+            Console.WriteLine("-------------------");
             Console.Write("Opção: ");
             return int.Parse(Console.ReadLine());
         }
@@ -130,14 +129,14 @@ namespace Sistema_Bancario
         {
             Console.WriteLine();
             Console.WriteLine($"--- Bem-vindo: {clienteLogado.Nome} ---");
-            Console.WriteLine("----------------------");
+            Console.WriteLine("----------------");
             Console.WriteLine("  01 - Depositar");
             Console.WriteLine("  02 - Sacar");
             Console.WriteLine("  03 - Transferir");
             Console.WriteLine("  04 - Ver Saldo");
-            Console.WriteLine("----------------------");
+            Console.WriteLine("----------------");
             Console.WriteLine("  99 - Logout");
-            Console.WriteLine("----------------------");
+            Console.WriteLine("----------------");
             Console.Write("Opção: ");
             return int.Parse(Console.ReadLine());
         }
@@ -242,18 +241,6 @@ namespace Sistema_Bancario
 
         }
         
-        /*public static void ListarMovimentações()
-        {
-            Console.WriteLine("-------- Atividades da Conta --------");
-            foreach (Conta obj in NConta.Listar())
-            Console.WriteLine("Digite o id da conta que deseja visualizar extrato");
-            int id = int.Parse(Console.ReadLine());
-            Conta atual = NConta.Listar(id);
-            if (atual != null)
-                foreach (Movimentações obj in NMovimentações.listar(atual))
-                    Console.WriteLine($"Transação {obj.ID} em {obj.data} de {NConta.Listar(obj.IDConta).TipoConta}");
-
-        }8*/
         public static void Sacar()
         {
             Console.WriteLine("-------- Saque --------");
