@@ -35,7 +35,7 @@ jobs:
       run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
 
     - name: Build project
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release /p:RunCodeAnalysis=true
 
     - name: Run StyleCop Analyzers
       run: dotnet build --configuration Release --no-restore    
@@ -90,3 +90,10 @@ jobs:
       run: |
         echo "Conteúdo do arquivo PlantUML:"
         type generated/program.png
+
+    - name: Publish code analysis results
+      run: |
+        dotnet build /p:RunCodeAnalysis=true
+        # Publicar o resultado da análise de código (caso deseje)
+        mkdir -p ${{ github.workspace }}/code-analysis-results
+        mv *.xml ${{ github.workspace }}/code-analysis-results
