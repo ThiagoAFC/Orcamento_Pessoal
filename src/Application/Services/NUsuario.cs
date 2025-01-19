@@ -7,7 +7,7 @@ using Sistema_Bancario.Domain.Entities;
 
 namespace Sistema_Bancario.Application.Services;
 
-class NUsuario
+static class NUsuario
 
 {
     private static List<Usuario> usuarios = new List<Usuario>();
@@ -19,10 +19,7 @@ class NUsuario
     }
     public static int Inserir(Usuario u)
     {
-        int id = 0;
-        foreach (Usuario obj in usuarios)
-            if (obj.Id > id) id = obj.Id;
-        id++;
+        int id = usuarios.Count == 0 ? 1 : usuarios.Select(obj => obj.Id).Max() + 1;
         u.Id = id;
         usuarios.Add(u);
         return id;

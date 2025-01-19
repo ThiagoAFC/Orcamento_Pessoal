@@ -7,15 +7,12 @@ using Sistema_Bancario.Domain.ValueObjects;
 
 namespace Sistema_Bancario.Application.Services;
 
-class NMovimentações
+static class NMovimentações
 {
     private static List<Movimentações> mov = new List<Movimentações>();
     public static int Inserir(Movimentações m)
     {
-        int id = 0;
-        foreach (Movimentações obj in mov)
-            if (obj.ID > id) id = obj.ID;
-        id++;
+        int id = mov.Count == 0 ? 1 : mov.Select(obj => obj.ID).Max() + 1;
         m.ID = id;
         mov.Add(m);
 
@@ -56,11 +53,19 @@ class NMovimentações
     public static void Transferencia(double valor, int idd, int idc, int idcliente)
     {
         foreach (Conta c1 in NConta.ListarSaldo(idcliente))
+        {
             if (idd == c1.ID && valor > 0 && valor <= c1.SaldoConta)
+            {
                 c1.SaldoConta -= valor;
                 foreach (Conta c2 in NConta.Listar())
+                {
                     if (idc == c2.ID && valor > 0)
+                    {
                         c2.SaldoConta += valor;
+                    }
+                }
+            }
+        }
     }
     public static void VerSaldoAdmin()
     {

@@ -9,10 +9,7 @@ namespace Sistema_Bancario.Application.Services;
         private static List<Cliente> clientes = new List<Cliente>();
         public static void Inserir(Cliente c)
         {
-            int id = 0;
-            foreach (Cliente obj in clientes)
-                if (obj.Id > id) id = obj.Id;
-            id++;
+            int id = clientes.Count == 0 ? 1 : clientes.Select(cliente => cliente.Id).Max() + 1;
             c.Id = id;
             clientes.Add(c);
         }
@@ -41,13 +38,16 @@ namespace Sistema_Bancario.Application.Services;
         }
         public static List<Cliente> Saldos()
         {
-            clientes.Sort();
-            return clientes;
+            return clientes.ToList();
         }
-        public static Cliente Saldos(int saldo)
+        public static Cliente Saldos(decimal saldo)
         {
+            decimal tolerancia = 0.001m;
             foreach (Cliente obj in clientes)
-                if (obj.Saldo == saldo) return obj;
+            {
+                if (Math.Abs(obj.Saldo - saldo) < tolerancia) // Verifica a diferença absoluta
+                    return obj;
+            }
             return null;
         }
     }

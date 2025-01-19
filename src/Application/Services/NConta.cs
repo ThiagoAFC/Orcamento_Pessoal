@@ -6,16 +6,13 @@ using Sistema_Bancario.Domain.Entities;
 
 namespace Sistema_Bancario.Application.Services;
 
-class NConta
+static class NConta
 
 {
     private static List<Conta> contas = new List<Conta>();
     public static void Inserir(Conta con)
     {
-        int id = 0;
-        foreach (Conta obj in contas)
-            if (obj.ID > id) id = obj.ID;
-        id++;
+        int id = contas.Count == 0 ? 1 : contas.Select(c => c.ID).Max() + 1;
         con.ID = id;
         contas.Add(con);
     }
