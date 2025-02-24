@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Sistema_Bancario.Tests</RootNamespace>
     <IsPackable>true</IsPackable>
-    <CodeAnalysisRuleSet>../../.github/workflows/analise.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>D:\a\Orcamento_Pessoal\Orcamento_Pessoal\.github\workflows\analise.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
