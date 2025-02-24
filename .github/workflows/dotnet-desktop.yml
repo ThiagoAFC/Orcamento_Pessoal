@@ -32,13 +32,25 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
+      run: |
+        dotnet add package Microsoft.CodeAnalysis.NetAnalyzers
+        dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
+
+    - name: Configure Deprecated Code Detection
+      run: |
+        echo '<Project>' > Directory.Build.props
+        echo '  <PropertyGroup>' >> Directory.Build.props
+        echo '    <EnableNETAnalyzers>true</EnableNETAnalyzers>' >> Directory.Build.props
+        echo '    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>' >> Directory.Build.props
+        echo '    <WarningsAsErrors>CS0612;CS0618</WarningsAsErrors>' >> Directory.Build.props
+        echo '  </PropertyGroup>' >> Directory.Build.props
+        echo '</Project>' >> Directory.Build.props
 
     - name: Build project
-      run: dotnet build --configuration Release /p:RunCodeAnalysis=true
+      run: dotnet build --configuration Release --warnaserror
 
     - name: Run StyleCop Analyzers
-      run: dotnet build --configuration Release --no-restore    
+      run: dotnet build --configuration Release --no-restore
 
     # Configurar o PMD
     - name: Download and Setup PMD
