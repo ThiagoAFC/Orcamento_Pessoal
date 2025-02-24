@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4.2.1
+      uses: actions/checkout@v4.2.2
       with:
         fetch-depth: 0
 
@@ -27,18 +27,33 @@ jobs:
           ${{ runner.os }}-dotnet-
 
     - name: Install .NET Core
-      uses: actions/setup-dotnet@v4.0.1
+      uses: actions/setup-dotnet@v4.3.0
       with:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
+      run: |
+        dotnet add package Microsoft.CodeAnalysis.NetAnalyzers
+        dotnet restore ./Tests/Sistema_Bancario.csproj --verbosity minimal
+
+    - name: Configure Deprecated Code Detection
+      run: |
+        echo '<Project>' > Directory.Build.props
+        echo '  <PropertyGroup>' >> Directory.Build.props
+        echo '    <EnableNETAnalyzers>true</EnableNETAnalyzers>' >> Directory.Build.props
+        echo '    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>' >> Directory.Build.props
+        echo '    <WarningsAsErrors>CS0612;CS0618</WarningsAsErrors>' >> Directory.Build.props
+        echo '  </PropertyGroup>' >> Directory.Build.props
+        echo '</Project>' >> Directory.Build.props
+
+    - name: Listar arquivos no repositório
+      run: ls -R
 
     - name: Build project
-      run: dotnet build --configuration Release /p:RunCodeAnalysis=true
+      run: dotnet build --configuration Release --warnaserror
 
     - name: Run StyleCop Analyzers
-      run: dotnet build --configuration Release --no-restore    
+      run: dotnet build --configuration Release --no-restore
 
     # Configurar o PMD
     - name: Download and Setup PMD
@@ -80,7 +95,7 @@ jobs:
 
     # Fazer upload do diagrama UML como artefato
     - name: Upload UML Diagram as Artifact
-      uses: actions/upload-artifact@v4.4.3
+      uses: actions/upload-artifact@v4.6.0
       with:
         name: uml-diagram
         path: generated/diagram.png

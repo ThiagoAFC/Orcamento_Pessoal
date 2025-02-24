@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors>CS0612;CS0618</WarningsAsErrors>
+  </PropertyGroup>
+</Project>

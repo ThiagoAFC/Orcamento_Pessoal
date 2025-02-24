@@ -41,7 +41,8 @@
 				"ms-azuretools.vscode-docker",
 				"ms-dotnettools.csdevkit",
 				"pierre3.csharp-to-plantuml",
-				"jmrog.vscode-nuget-package-manager"
+				"jmrog.vscode-nuget-package-manager",
+				"redhat.fabric8-analytics"
 			]
 		}
 	}
