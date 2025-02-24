@@ -46,6 +46,9 @@ jobs:
         echo '  </PropertyGroup>' >> Directory.Build.props
         echo '</Project>' >> Directory.Build.props
 
+    - name: Listar arquivos no repositório
+      run: ls -R
+
     - name: Build project
       run: dotnet build --configuration Release --warnaserror
 
