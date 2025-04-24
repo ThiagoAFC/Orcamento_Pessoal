@@ -95,7 +95,7 @@ jobs:
 
     # Fazer upload do diagrama UML como artefato
     - name: Upload UML Diagram as Artifact
-      uses: actions/upload-artifact@v4.6.1
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: uml-diagram
         path: generated/diagram.png
